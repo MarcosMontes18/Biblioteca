@@ -1,0 +1,151 @@
+<!--*
+ * Copyright (c) [2025] [Marcos Montes]
+ * Todos los derechos reservados.
+
+ * Para obtener información sobre licencias adicionales, contacte a:
+ * [marcosmontes211@gmail.com]
+ * [3144563446]
+* -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Santa FE</title>
+    <link rel="icon" type="image/png" href="/Biblioteca/clase/frontend/imagen/logo biblioteca.png"> <!-- https://www.figma.com/design/K6EezedJ8y2ZNKtsKiRyaa/Untitled?node-id=4-55&t=JKoGB8GZqZXOBR91-1-->
+    <link rel="stylesheet" href="/Biblioteca/clase/frontend/bibilioteca-v2.0.css">
+</head>
+<body>
+    <!-- Esta es la caja contenedora de todo -->
+    <div class="container">
+        <!-- Esta es la cabecera de la pagina -->
+        <div class="header">
+            <img src="/Biblioteca/clase/frontend/imagen/logo biblioteca.png" alt="logo" class="logo"> <!-- Este es el logo de la pagina -->
+            <h1>Biblioteca Santa FE</h1> <!-- Este es el titulo de la pagina -->
+            
+            <div class="buttons"> <!-- Estos son los botones de la cabecera -->
+                <button onclick="verPerfil()" class="button">PERFIL</button>
+                <button class="button" id="cerrarSesion">Cerrar</button>
+            </div>
+        </div>
+          <!-- Modal para publicar el libro -->
+        <div id="modal_publicar_libro" class="modal_publicar">
+            <div class="modal-content-publicar"> <!-- Este es el contenido del modal -->
+                
+                <h2>Publicar un libro</h2> <!--Este es el titulo dentro del modal -->  
+
+                <!-- Formulario para publicar un libro -->
+                <form id="publicarLibro"> <!-- Este es el formulario -->
+                    <input type="text" id="titulo" placeholder="Título del libro" required><br><br>
+                    <input type="text" id="autor" placeholder="Autor del libro" required><br><br>
+                    <input type="number" id="año" placeholder="Año de publicación" required><br><br>
+                    <input type="text" id="genero" placeholder="Género" required><br><br>
+                    
+                    <!--Este boton nos agrega el libro de las en las cajas -->
+                    <button id="guarda" type="button">Publicar</button>
+                </form>
+            </div>    
+        </div>
+
+        <!-- Modal para ver la información del libro -->
+        <div id="modal_ver_libro" class="modal_ver" >
+            <div class="modal-content-ver" onclick="event.stopPropagation()" > <!-- La función event.stopPropagation() evita que el evento de clic se propague a los elementos padres. -->
+                <!-- Este es el contenido del modal -->
+                <h2 id="modal_titulo">Título del libro</h2> 
+                <p id="modal_autor">Autor: </p>
+                <p id="modal_año">Año de publicación: </p> 
+                <p id="modal_genero">Género: </p>
+                <p id="modal_likes">Me gusta: 0</p>
+                <button onclick="verPerfilLibro()" class="button">Ver perfil</button>
+                <button class="button" onclick="darLikeLibro(libroSeleccionadoId)">Me gusta</button>
+            </div>
+        </div>
+
+            <!-- esta barra contiene el buscador y la opcion de publicar un libro -->
+            <div class="search-bar">
+            
+            <!-- Este Boton para abrir el formulario y publicar el libro-->
+            <button onclick="publicarLibro()" class="button">Publicar libro</button>
+
+            <!-- Capturamos el dato que el usuario ingrese para hacer la búsqueda -->
+            <input type="text" placeholder="Buscar libro por autor o título" id="buscar_libro" required>
+        </div>
+
+        <!--Aqui se va a mostrar los libros-->
+        <div class="grid" id="biblioteca">
+            
+            <!--Estas son las cajas en las los libros se mostraran
+            <div class="book"></div>-->
+        
+        </div>
+
+        <!-- Este modal muestra el perfil del usuario-->
+        <div id="modalPerfil" class="modal-perfil">
+            <div class="modal-content-perfil"> <!-- Este es el contenido del modal -->
+                <h2 id="perfil_nombre">Nombre usuario</h2>
+                <p id="perfil_email">nombreusuario@email.com</p>
+                <p id="perfil_telefono">3001234567</p>
+                <p id="perfil_genero">Género</p>
+                <p id="perfil_libros_publicados" >Libros: 0</p>
+                <div class="contenedores-info">
+                    <div>
+                        <p>Seguidos</p>
+                        <p>0</p>
+                    </div>
+                    <div>
+                        <p>Me Gustas</p>
+                        <p>0</p>
+                    </div>
+                    <div>
+                        <p>Seguidores</p>
+                        <p>0</p>
+                    </div>
+                </div>
+                <div class="description">
+                    <p id="perfil_descripcion" >Descripción</p>
+                </div>
+                
+            </div>
+        </div>    
+
+        <!-- Este modal muestra el perfil del usuario del libro publicado-->
+        <div id="modalPerfil-libro" class="modal-perfil-libro">
+            <div class="modal-content-perfil-libro"> <!-- Este es el contenido del modal -->
+                <span class="close" onclick="closeModal('modalPerfil-libro')">&times;</span> <!-- Este es el boton para cerrar el modal -->
+                <h2 id="modalPerfil-libro-nombre" >Nombre usuario</h2>
+                <p id="modalPerfil-libro-email" >nombreusuario@email.com</p>
+                <p id="modalPerfil-libro-telefono" >3001234567</p>
+                <p id="modalPerfil-libro-genero" >Género</p>
+                <p>Libros: 0</p>
+                <div class="contenedores-info-libro">
+                    <div>
+                        <p>Seguidos</p>
+                        <p>0</p>
+                    </div>
+                    <div>
+                        <p>Me Gustas</p>
+                        <p>0</p>
+                    </div>
+                    <div>
+                        <p>Seguidores</p>
+                        <p>0</p>
+                    </div>
+                </div>
+                <div class="description-libro-info">
+                    <p id="modalPerfil-libro-descripcion" >Descripción</p>
+                </div> 
+                <div class="buttons">
+                    <button onclick="seguir()">Seguir</button>
+                    <button onclick="dejarDeSeguir()">Dejar de Seguir</button>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>&copy; 2025 Biblioteca Santa Fe. Todos los derechos reservados.</p>
+            <p>Para obtener información sobre licencias adicionales, contacte a: <a href="mailto:marcosmontes211@gmail.com">marcosmontes211@gmail.com</a> | Tel: 3144563446</p>
+        </footer>
+    </div>
+
+    <script src="/Biblioteca/clase/frontend/Script-V2.0.js"></script>
+</body>
+</html>

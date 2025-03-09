@@ -1,0 +1,133 @@
+/*
+ * Copyright (c) [2025] [Marcos Montes]
+ * Todos los derechos reservados.
+
+ * Para obtener información sobre licencias adicionales, contacte a:
+ * [marcosmontes211@gmail.com]
+ * [3144563446]
+ */
+ 
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url(/Biblioteca/clase/frontend/imagen/fondo_biblioteca.jpg);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: cover; /* Hace que la imagen cubra toda el área */
+    background-position: center; /* Centra la imagen en la pantalla */
+  }
+  
+  /* Contenedor del formulario */
+  .login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  /* Título (h1) */
+  h1 {
+    color: #ffffff;
+    font-size: 25px;
+    margin-bottom: 340px; /* Espacio debajo del título */
+  }
+  
+  /* Estilos para los campos de entrada */
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #ffffff;
+    outline: none;
+  }
+
+
+
+  /* Botón de envío */
+  button {
+    width: 100%;
+    padding: 14px;
+    background-color: #680000;
+    color: rgb(201, 201, 201);
+    border-radius: 13px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.4s;
+  }
+  
+  button:hover {
+    background-color: #520000;
+  }
+  
+  /* Mensaje de alerta */
+  .alert {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .my_select_login {
+    background-color: #ffffff00; /* Color de fondo */
+    border: 2px solid #ffffff00; /* Borde azul de 2px */
+    padding: 2px; /* Relleno interior */
+    font-size: 15px; /* Tamaño del texto */
+    color: #b39a9a; /* Color del texto */
+    border-radius: 13px; /* Bordes redondeados */
+    width: 135px; /* Ancho del select */
+}
+
+.my_select_login option {
+    background-color: transparent; /* Fondo de las opciones */
+    border-radius: 13px;
+    color: #680000;
+}
+
+img.logo {
+  position: absolute;  /* Se posiciona respecto al elemento padre con position: relative */
+  top: 140px;           /* Mueve la imagen 50px desde la parte superior */
+  left: 375px;         /* Mueve la imagen 100px desde la izquierda */
+  width: 80px;        /* Ancho de la imagen */
+  height: 90px;       /* Alto de la imagen */
+}
+
+
+/* Estilo del modal*/
+
+/* Estilo del modal (oculto por defecto) */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+  text-align: center;
+  border-radius: 8px;
+}

@@ -1,0 +1,93 @@
+<!--*
+ * Copyright (c) [2025] [Marcos Montes]
+ * Todos los derechos reservados.
+
+ * Para obtener información sobre licencias adicionales, contacte a:
+ * [marcosmontes211@gmail.com]
+ * [3144563446]
+* -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="login-2.0.css">
+  <link rel="icon" type="image/png" href="/Biblioteca/clase/frontend/imagen/logo biblioteca.png"> <!-- https://www.figma.com/design/K6EezedJ8y2ZNKtsKiRyaa/Untitled?node-id=4-55&t=JKoGB8GZqZXOBR91-1-->
+  <title>Santa FE</title>                                           
+</head>
+<body>
+  
+  <img src="/Biblioteca/clase/frontend/imagen/logo biblioteca.png" alt="logo" class="logo">
+
+  <h1>Biblioteca Santa FE</h1>
+  <form id="loginForm">
+    
+    <!-- Select para elegir el rol del usuario -->
+    <select id="role" class="my_select_login">
+      <option value="8080">Usuario Normal</option>
+      <option value="9090">Administrador</option>
+    </select><br><br>
+
+    <!-- Campos para el usuario y contraseña -->
+    <input type="text" id="username" placeholder="Usuario" required><br><br>
+    <input type="password" id="password" placeholder="Contraseña" required><br><br>
+
+    <!-- Botón para iniciar sesión -->
+    <button type="submit">Iniciar sesión</button>
+  </form>
+
+  <!-- Modal si es incorrecto las credenciales -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <p>Credenciales incorrectas☠️.</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (event) => { // Evento para el formulario de inicio de sesión
+      event.preventDefault(); // Evitar que el formulario se envíe
+
+      const username = document.getElementById("username").value.trim(); // Obtener el valor del campo de usuario
+      const password = document.getElementById("password").value.trim(); // Obtener el valor del campo de contraseña
+      const role = document.getElementById("role").value; // Obtener el valor del campo de rol
+
+      try {
+        const response = await fetch("http://localhost:3000/login", { // Enviar la petición al servidor
+          method: "POST", // Método de la petición
+          headers: { // Cabeceras de la petición
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password, role }), // Cuerpo de la petición
+        });
+
+        const result = await response.json(); // Esperar la respuesta del servidor
+
+        if (result.success) { // Si las credenciales son correctas
+          localStorage.setItem("usuarioId", result.user.id); // Guardar el ID del usuario en el localStorage
+          localStorage.setItem("userRole", role); // Guardar el rol del usuario
+          window.location.href = "biblioteca-v2.0.html"; // Redirigir al usuario a la biblioteca
+        } else { // Si las credenciales son incorrectas
+          let modal = document.getElementById("errorModal"); // Obtener el modal
+
+        // Mostrar el modal
+        modal.style.display = "block";
+
+        setTimeout(() => {
+        modal.style.display = "none";    //Este ejemplo es para cerrar el modal despues de 0.5 segundos
+        }, 5500);
+
+        // Cerrar el modal al hacer clic fuera de él
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            }
+          };
+        }
+      } catch (error) {
+        console.error("Error al iniciar sesión:", error);
+        alert("Hubo un error al iniciar sesión.");
+      }
+    });
+  </script>
+</body>
+</html>

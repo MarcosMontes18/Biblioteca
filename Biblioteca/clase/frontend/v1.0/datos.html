@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca Santa Fe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <img src="imagen/logo biblioteca.png" alt="logo" class="logo">
+      <h1>Biblioteca Santa Fe</h1>
+      <p>Encuentra tus libros favoritos o publica nuevos 📖✨</p>
+    </header>
+
+    <div class="main-content">
+      <!-- Sección de Libros Disponibles -->
+      <section class="books">
+        <h2>📘 Libros Disponibles</h2>
+        <button id="fetchData" >Cargar Libros</button>
+        <button id="fetchData_op_li">Cargar Libros de Open Librery</button>
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Autor</th>
+              <th>Año</th>
+              <th>Género</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <!-- Sección de Publicación de libros -->
+      <section class="publish">
+        <h2>📢 Publica un nuevo libro</h2>
+        <form>
+          <input type="text" id="titulo" placeholder="Título del libro" required>
+          <input type="text" id="autor" placeholder="Autor del libro" required>
+          <input type="number" id="año" placeholder="Año de publicación" required>
+          <input type="text" id="genero" placeholder="Género" required>
+        </form>
+        <button id="guarda">Publicar</button>
+      </section>
+
+      <!-- Sección de Buscar Libros -->
+      <section class="search">
+        <h2>🔍 Buscar libro</h2>
+        <input type="text" id="busca" placeholder="Buscar por título o autor">
+        <button id="buscar">Buscar</button>
+        <table id="dataTable_B">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Autor</th>
+              <th>Año</th>
+              <th>Género</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <!-- Sección para modificar un libro -->
+      <section class="modify">
+        <h2>✏ Modificar libro</h2>
+        <form>
+          <input type="text" id="titulo_mod" placeholder="Nuevo Título" required>
+          <input type="text" id="autor_mod" placeholder="Nuevo Autor" required>
+          <input type="number" id="año_mod" placeholder="Nuevo Año de publicación" required>
+          <input type="text" id="genero_mod" placeholder="Nuevo Género" required>
+        </form>
+        <button id="modifica" class="btn-primary">Modificar</button>
+      </section>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+
+</body>
+</html>
