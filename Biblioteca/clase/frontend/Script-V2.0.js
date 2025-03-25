@@ -88,14 +88,18 @@ function publicarLibro() {
 
 // Guardar nuevo libro
 document.getElementById("guarda").addEventListener("click", async () => {
-    // Obtener los valores de los inputs en variables y eliminar los espacios en blanco
-    const titulo = document.getElementById("titulo").value.trim();
-    const autor = document.getElementById("autor").value.trim(); 
-    const año = document.getElementById("año").value.trim();
-    const genero = document.getElementById("genero").value.trim();
-    const usuarioId = localStorage.getItem('usuarioId'); // Obtener el ID del usuario desde el localStorage
+    
+    // Obtener los valores de los inputs en un objeto y eliminar los espacios en blanco
+    const dataLibro = {
+            titulo : document.getElementById("titulo").value.trim(),
+            autor : document.getElementById("autor").value.trim(),
+            año : document.getElementById("año").value.trim(),
+            genero : document.getElementById("genero").value.trim(),
+            usuarioId : localStorage.getItem('usuarioId') // Obtener el ID del usuario desde el localStorage
+    };
 
-    if (!titulo || !autor || !año || !genero) { // Validar que los campos no estén vacíos
+
+    if (Object.values(dataLibro).some(campo => !campo)) { // Verificar si algún campo está vacío
         alert("Todos los campos son obligatorios.");
         return;
     }
@@ -106,15 +110,30 @@ document.getElementById("guarda").addEventListener("click", async () => {
             headers: {  // Cabeceras para enviar datos en formato JSON
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ titulo, autor, año, genero, usuario_id: usuarioId }), // Convertir los datos a JSON
+            body: JSON.stringify({ // Convertir los datos a JSON
+                titulo: dataLibro.titulo, 
+                autor: dataLibro.autor, 
+                año: dataLibro.año, 
+                genero: dataLibro.genero, 
+                usuario_id: dataLibro.usuarioId 
+            }),
         });
 
-        const result = await response.text(); // Convertir la respuesta a texto
-        alert(result);
-        document.querySelector("form").reset(); // Limpia los inputs después de guardar
 
-        // Agregar el libro a la biblioteca después de guardarlo
-        agregarLibro(titulo, autor, año, genero);
+        if (!response.ok) { // Verificar si la respuesta es exitosa
+            throw new Error(`Error HTTP: ${response.status}`); // Lanzar un error con el código de estado
+        }
+
+        const result = await response.text(); // Convertir la respuesta a texto
+        alert(result);// Mostrar un mensaje de éxito
+        document.querySelector("form").reset(); // Limpiar el formulario
+
+        // Agregar el libro a la biblioteca
+        try {
+            agregarLibro(dataLibro.titulo, dataLibro.autor, dataLibro.año, dataLibro.genero); 
+        } catch (error) {
+            console.error("Error al agregar el libro a la biblioteca:", error);
+        }
 
         let modal = document.getElementById("modal_publicar_libro"); // Obtener el modal
         modal.style.display = "none"; // Cerrar el modal
